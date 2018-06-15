@@ -1,7 +1,0 @@
-2018-06-12 17:43:44,683 [main] INFO   connect to mysql, database = foo
-2018-06-12 17:43:44,727 [main] INFO   check foo.t1	pass
-2018-06-12 17:43:44,748 [main] WARN   check foo.t2	pass, charset is gbk, but it don't have primary key
-2018-06-12 17:43:44,775 [main] WARN   check foo.t3	pass, but it don't have primary key
-2018-06-12 17:43:44,787 [main] WARN   check foo.t4	pass, but it don't have primary key
-2018-06-12 17:43:44,810 [main] WARN   check foo.t5	pass, but it don't have primary key
-2018-06-12 17:43:44,824 [main] WARN   check foo.test	pass, but it don't have primary key
