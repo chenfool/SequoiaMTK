@@ -79,7 +79,7 @@ checkerExecJava () {
    check_jar=$(ls ${binpath}/../lib/checkDB*.jar)
    check_jar=$(basename ${check_jar})
 
-   java -Dlog4j.configuration="file:${binpath}/../conf/checkDB.log4j.properties" -cp ${CP}:${binpath}/../lib/${check_jar} com.sequoiadb.CheckDB ${ip} ${port} ${user} ${password} ${dbname}
+   java -Dlog4j.configuration="file:${binpath}/../conf/mexport.log4j.properties" -cp ${CP}:${binpath}/../lib/${check_jar} com.sequoiadb.CheckDB ${ip} ${port} ${user} ${password} ${dbname}
 }
 
 checkMysqlLogin () {
