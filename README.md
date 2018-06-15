@@ -41,5 +41,5 @@ mexport在检查mysql 的表结构时，如果发现数据表中字段类型不�
 * timestamp
 * char
 * varchar
-* text\<br>
+* text \<br>
 另外，如果数据表的字符集非utf8和gbk同样也无法导出数据，并且当字符集为gbk时，mexport将自动将导出文件的字符集转换为utf8。
