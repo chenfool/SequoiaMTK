@@ -83,7 +83,7 @@ checkerExecJava () {
 }
 
 checkMysqlLogin () {
-   result=$(${MYSQL} "select 1;")
+   result=$(${MYSQL} "select 1;" ${dbname} 2>&1)
    if [ "0" != "$?" ] ; then
       echo "mysql login fail"
       echo "erro info : ${result}";
