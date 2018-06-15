@@ -1,0 +1,64 @@
+2018-05-29 10:45:40,433 [main] INFO   connect to mysql, database = foo
+2018-05-29 10:45:40,471 [main] INFO   check foo.t1     pass
+2018-05-29 10:45:40,493 [main] ERROR  check foo.t2     fail, foo.t2's charset is gbk, only support utf8 charset
+2018-05-29 10:45:40,509 [main] WARN   check foo.t3     pass, but it don't have primary key
+2018-05-29 10:45:40,533 [main] WARN   check foo.t4     pass, but it don't have primary key
+2018-05-29 10:45:40,550 [main] WARN   check foo.t5     pass, but it don't have primary key
+2018-05-29 10:45:40,557 [main] WARN   check foo.test     pass, but it don't have primary key
+2018-05-29 10:46:28,478 [main] INFO   connect to mysql, database = foo
+2018-05-29 10:46:28,508 [main] INFO   check foo.t1     pass
+2018-05-29 10:46:28,524 [main] ERROR  check foo.t2     fail, foo.t2's charset is gbk, only support utf8 charset
+2018-05-29 10:46:28,545 [main] WARN   check foo.t3     pass, but it don't have primary key
+2018-05-29 10:46:28,556 [main] WARN   check foo.t4     pass, but it don't have primary key
+2018-05-29 10:46:28,568 [main] WARN   check foo.t5     pass, but it don't have primary key
+2018-05-29 10:46:28,575 [main] WARN   check foo.test     pass, but it don't have primary key
+2018-05-29 10:46:54,372 [main] ERROR  Please import right ip & port & user & password & database
+2018-05-29 10:48:05,714 [main] INFO   connect to mysql, database = foo
+2018-05-29 10:48:05,742 [main] INFO   check foo.t1     pass
+2018-05-29 10:48:05,757 [main] ERROR  check foo.t2     fail, foo.t2's charset is gbk, only support utf8 charset
+2018-05-29 10:48:05,769 [main] WARN   check foo.t3     pass, but it don't have primary key
+2018-05-29 10:48:05,793 [main] WARN   check foo.t4     pass, but it don't have primary key
+2018-05-29 10:48:05,813 [main] WARN   check foo.t5     pass, but it don't have primary key
+2018-05-29 10:48:05,823 [main] WARN   check foo.test     pass, but it don't have primary key
+2018-05-29 10:50:53,831 [main] INFO   connect to mysql, database = foo
+2018-05-29 10:50:53,857 [main] INFO   check foo.t1     pass
+2018-05-29 10:50:53,871 [main] ERROR  check foo.t2     fail, foo.t2's charset is gbk, only support utf8 charset
+2018-05-29 10:50:53,884 [main] WARN   check foo.t3     pass, but it don't have primary key
+2018-05-29 10:50:53,899 [main] WARN   check foo.t4     pass, but it don't have primary key
+2018-05-29 10:50:53,913 [main] WARN   check foo.t5     pass, but it don't have primary key
+2018-05-29 10:50:53,932 [main] WARN   check foo.test     pass, but it don't have primary key
+2018-05-29 10:51:22,977 [main] INFO   connect to mysql, database = foo
+2018-05-29 10:51:23,003 [main] INFO   check foo.t1     pass
+2018-05-29 10:51:23,017 [main] ERROR  check foo.t2     fail, foo.t2's charset is gbk, only support utf8 charset
+2018-05-29 10:51:23,036 [main] WARN   check foo.t3     pass, but it don't have primary key
+2018-05-29 10:51:23,049 [main] WARN   check foo.t4     pass, but it don't have primary key
+2018-05-29 10:51:23,060 [main] WARN   check foo.t5     pass, but it don't have primary key
+2018-05-29 10:51:23,072 [main] WARN   check foo.test     pass, but it don't have primary key
+2018-05-29 10:51:31,457 [main] INFO   connect to mysql, database = foo
+2018-05-29 10:51:31,485 [main] INFO   check foo.t1     pass
+2018-05-29 10:51:31,495 [main] ERROR  check foo.t2     fail, foo.t2's charset is gbk, only support utf8 charset
+2018-05-29 10:51:31,505 [main] WARN   check foo.t3     pass, but it don't have primary key
+2018-05-29 10:51:31,528 [main] WARN   check foo.t4     pass, but it don't have primary key
+2018-05-29 10:51:31,542 [main] WARN   check foo.t5     pass, but it don't have primary key
+2018-05-29 10:51:31,565 [main] WARN   check foo.test     pass, but it don't have primary key
+2018-05-29 10:51:46,644 [main] INFO   connect to mysql, database = foo
+2018-05-29 10:51:46,670 [main] INFO   check foo.t1     pass
+2018-05-29 10:51:46,680 [main] ERROR  check foo.t2     fail, foo.t2's charset is gbk, only support utf8 charset
+2018-05-29 10:51:46,690 [main] WARN   check foo.t3     pass, but it don't have primary key
+2018-05-29 10:51:46,717 [main] WARN   check foo.t4     pass, but it don't have primary key
+2018-05-29 10:51:46,744 [main] WARN   check foo.t5     pass, but it don't have primary key
+2018-05-29 10:51:46,754 [main] WARN   check foo.test     pass, but it don't have primary key
+2018-05-29 10:51:53,322 [main] INFO   connect to mysql, database = foo
+2018-05-29 10:51:53,348 [main] INFO   check foo.t1     pass
+2018-05-29 10:51:53,362 [main] ERROR  check foo.t2     fail, foo.t2's charset is gbk, only support utf8 charset
+2018-05-29 10:51:53,370 [main] WARN   check foo.t3     pass, but it don't have primary key
+2018-05-29 10:51:53,395 [main] WARN   check foo.t4     pass, but it don't have primary key
+2018-05-29 10:51:53,415 [main] WARN   check foo.t5     pass, but it don't have primary key
+2018-05-29 10:51:53,429 [main] WARN   check foo.test     pass, but it don't have primary key
+2018-05-29 10:53:33,620 [main] INFO   connect to mysql, database = foo
+2018-05-29 10:53:33,647 [main] INFO   check foo.t1     pass
+2018-05-29 10:53:33,661 [main] ERROR  check foo.t2     fail, foo.t2's charset is gbk, only support utf8 charset
+2018-05-29 10:53:33,679 [main] WARN   check foo.t3     pass, but it don't have primary key
+2018-05-29 10:53:33,694 [main] WARN   check foo.t4     pass, but it don't have primary key
+2018-05-29 10:53:33,707 [main] WARN   check foo.t5     pass, but it don't have primary key
+2018-05-29 10:53:33,722 [main] WARN   check foo.test     pass, but it don't have primary key

@@ -1,0 +1,7 @@
+2018-06-13 11:23:15,313 [main] INFO   connect to mysql, database = foo
+2018-06-13 11:23:15,361 [main] INFO   check foo.t1	pass
+2018-06-13 11:23:15,392 [main] WARN   check foo.t2	pass, but it don't have primary key
+2018-06-13 11:23:15,411 [main] WARN   check foo.t3	pass, but it don't have primary key
+2018-06-13 11:23:15,426 [main] WARN   check foo.t4	pass, but it don't have primary key
+2018-06-13 11:23:15,444 [main] WARN   check foo.t5	pass, but it don't have primary key
+2018-06-13 11:23:15,466 [main] WARN   check foo.test	pass, but it don't have primary key

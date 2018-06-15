@@ -1,0 +1,21 @@
+2018-05-09 16:14:30,482 [main] ERROR  Please import right ip & port & user & password & database
+2018-05-09 16:14:39,407 [main] ERROR  Please import right ip & port & user & password & database
+2018-05-09 16:14:59,567 [main] INFO   connect to mysql, database = foo
+2018-05-09 16:14:59,626 [main] INFO   check foo.t1     pass
+2018-05-09 16:14:59,642 [main] ERROR  foo.t2's charset is gbk, only support utf8 charset
+2018-05-09 16:14:59,659 [main] INFO   check foo.t3     pass
+2018-05-09 16:14:59,672 [main] INFO   check foo.t4     pass
+2018-05-09 16:14:59,679 [main] INFO   check foo.test     pass
+2018-05-09 16:43:49,885 [main] INFO   connect to mysql, database = foo
+2018-05-09 16:43:49,916 [main] INFO   check foo.t1     pass
+2018-05-09 16:43:49,939 [main] ERROR  foo.t2's charset is gbk, only support utf8 charset
+2018-05-09 16:43:49,951 [main] INFO   check foo.t3     pass
+2018-05-09 16:43:49,968 [main] INFO   check foo.t4     pass
+2018-05-09 16:43:49,982 [main] INFO   check foo.test     pass
+2018-05-09 16:52:29,591 [main] INFO   connect to mysql, database = foo
+2018-05-09 16:52:29,628 [main] WARN   check foo.t1     pass, but it don't have primary key
+2018-05-09 16:52:29,655 [main] ERROR  check foo.t2     fail
+2018-05-09 16:52:29,656 [main] ERROR  foo.t2's charset is gbk, only support utf8 charset
+2018-05-09 16:52:29,665 [main] WARN   check foo.t3     pass, but it don't have primary key
+2018-05-09 16:52:29,677 [main] WARN   check foo.t4     pass, but it don't have primary key
+2018-05-09 16:52:29,691 [main] WARN   check foo.test     pass, but it don't have primary key

@@ -1,0 +1,72 @@
+2018-05-09 15:14:22,057 [Thread-0] INFO   
+****************************************************
+* Batch Id: [174] ,count : [3] , memsize : [136] , Time : 2018-05-09 15:14:22
+* Start : [replicalog.000011:21124:1525850062000(2018-05-09 15:14:22)] 
+* End : [replicalog.000011:21276:1525850062000(2018-05-09 15:14:22)] 
+****************************************************
+
+2018-05-09 15:14:22,067 [Thread-0] INFO   
+----------------> binlog[replicalog.000011:21234] , name[foo,t1] , eventType : INSERT , executeTime : 1525850062000 , delay : 59ms
+
+2018-05-09 15:14:24,303 [Thread-0] INFO   
+****************************************************
+* Batch Id: [177] ,count : [3] , memsize : [136] , Time : 2018-05-09 15:14:24
+* Start : [replicalog.000011:21661:1525850064000(2018-05-09 15:14:24)] 
+* End : [replicalog.000011:21813:1525850064000(2018-05-09 15:14:24)] 
+****************************************************
+
+2018-05-09 15:14:24,304 [Thread-0] INFO   
+----------------> binlog[replicalog.000011:21771] , name[foo,t1] , eventType : INSERT , executeTime : 1525850064000 , delay : 304ms
+
+2018-05-09 15:14:24,352 [Thread-0] ERROR  process error!
+com.alibaba.otter.canal.protocol.exception.CanalClientException: something goes wrong with reason: something goes wrong with channel:[id: 0x469dadf6, /10.211.55.12:48240 => /10.211.55.12:11111], exception=com.alibaba.otter.canal.meta.exception.CanalMetaManagerException: batchId:177 is not the firstly:175
+
+	at com.alibaba.otter.canal.client.impl.SimpleCanalConnector.receiveMessages(SimpleCanalConnector.java:302)
+	at com.alibaba.otter.canal.client.impl.SimpleCanalConnector.getWithoutAck(SimpleCanalConnector.java:279)
+	at com.alibaba.otter.canal.client.impl.SimpleCanalConnector.getWithoutAck(SimpleCanalConnector.java:252)
+	at com.sequoiadb.canal.client.AbstractCanalClient.process(AbstractCanalClient.java:123)
+	at com.sequoiadb.canal.client.AbstractCanalClient$2.run(AbstractCanalClient.java:86)
+	at java.lang.Thread.run(Thread.java:748)
+2018-05-09 15:14:25,116 [Thread-0] INFO   
+****************************************************
+* Batch Id: [180] ,count : [3] , memsize : [136] , Time : 2018-05-09 15:14:25
+* Start : [replicalog.000011:22019:1525850065000(2018-05-09 15:14:25)] 
+* End : [replicalog.000011:22171:1525850065000(2018-05-09 15:14:25)] 
+****************************************************
+
+2018-05-09 15:14:25,118 [Thread-0] INFO   
+----------------> binlog[replicalog.000011:22129] , name[foo,t1] , eventType : INSERT , executeTime : 1525850065000 , delay : 117ms
+
+2018-05-09 15:14:25,165 [Thread-0] ERROR  process error!
+com.alibaba.otter.canal.protocol.exception.CanalClientException: something goes wrong with reason: something goes wrong with channel:[id: 0x6cc20aa5, /10.211.55.12:48286 => /10.211.55.12:11111], exception=com.alibaba.otter.canal.meta.exception.CanalMetaManagerException: batchId:180 is not the firstly:178
+
+	at com.alibaba.otter.canal.client.impl.SimpleCanalConnector.receiveMessages(SimpleCanalConnector.java:302)
+	at com.alibaba.otter.canal.client.impl.SimpleCanalConnector.getWithoutAck(SimpleCanalConnector.java:279)
+	at com.alibaba.otter.canal.client.impl.SimpleCanalConnector.getWithoutAck(SimpleCanalConnector.java:252)
+	at com.sequoiadb.canal.client.AbstractCanalClient.process(AbstractCanalClient.java:123)
+	at com.sequoiadb.canal.client.AbstractCanalClient$2.run(AbstractCanalClient.java:86)
+	at java.lang.Thread.run(Thread.java:748)
+2018-05-09 15:14:25,249 [Thread-0] INFO   
+****************************************************
+* Batch Id: [181] ,count : [15] , memsize : [680] , Time : 2018-05-09 15:14:25
+* Start : [replicalog.000011:21303:1525850063000(2018-05-09 15:14:23)] 
+* End : [replicalog.000011:22171:1525850065000(2018-05-09 15:14:25)] 
+****************************************************
+
+2018-05-09 15:14:25,250 [Thread-0] INFO   
+----------------> binlog[replicalog.000011:21413] , name[foo,t1] , eventType : INSERT , executeTime : 1525850063000 , delay : 2250ms
+
+2018-05-09 15:14:25,255 [Thread-0] INFO   
+----------------> binlog[replicalog.000011:21592] , name[foo,t1] , eventType : INSERT , executeTime : 1525850063000 , delay : 2255ms
+
+2018-05-09 15:14:25,259 [Thread-0] INFO   
+----------------> binlog[replicalog.000011:21771] , name[foo,t1] , eventType : INSERT , executeTime : 1525850064000 , delay : 1259ms
+
+2018-05-09 15:14:25,263 [Thread-0] INFO   
+----------------> binlog[replicalog.000011:21950] , name[foo,t1] , eventType : INSERT , executeTime : 1525850064000 , delay : 1263ms
+
+2018-05-09 15:14:25,267 [Thread-0] INFO   
+----------------> binlog[replicalog.000011:22129] , name[foo,t1] , eventType : INSERT , executeTime : 1525850065000 , delay : 267ms
+
+2018-05-09 15:16:30,623 [Thread-1] INFO   ## stop the canal client
+2018-05-09 15:16:30,652 [Thread-1] INFO   ## canal client is down.

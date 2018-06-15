@@ -1,0 +1,368 @@
+#!/bin/bash
+
+localFileName=`basename $0`
+binpath=$( cd "$(dirname $0)"; pwd; )
+
+usage () {
+   echo "Usage: $0 [OPTIONS] 
+         -i              mysql ip, default \"localhost\"
+         -p              mysql port, default 3306
+         -u              mysql user
+         -w              mysql user's password
+         -d              mysql dbname
+         -o              [true/false] overwrite export path, default true
+         --trans         [true/false] gbk trans to utf8,default true
+         -h, --help print help info"
+   exit -1;
+}
+
+
+################## check env >>>>>>>>>>>>>>>>>>>>>>
+
+checkJDK () {
+   which java > /dev/null
+   if [ a"${?}" == a"0" ] ; then
+      java -version > /dev/null 2>&1
+      if [ a"${?}" != a"0" ] ; then
+         echo "This machine destn't have installed JDK, JDK version must be higher than 1.7";
+         exit -1;
+      fi
+   else
+      echo -e "This maching dostn't install JDK";
+      echo "must install JDK 1.7+ ";
+      exit -1;
+   fi
+
+   jdkversion=$(java -version 2>&1 | awk 'NR==1{gsub(/"/,"");print $3}' | awk -F '.' '{print $2}')
+   if [ ${jdkversion} -lt 7 ] ; then
+      echo "JDK version must be higher than 1.7"
+      exit -1;
+   fi
+}
+
+checkMysqlIsExist () {
+   which mysql > /dev/null 2>&1
+   if [ a"${?}" != a"0" ] ; then
+      echo "Can't find mysql, please install it";
+      exit -1;
+   fi
+}
+
+################## check env <<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+
+################## init env >>>>>>>>>>>>>>>>>>>>>>
+getExportPath () {
+   SQL="show variables like 'secure_file_priv';" ;
+   EXPORTPATH=$(${MYSQL} "${SQL}" | awk -F '\t' '{print $2}')
+   if [ "aNULL" == a"${EXPORTPATH}" ] ; then
+      echo "mysql must set secure_file_priv variable"
+      exit -1
+   fi
+   
+   echo "mysql export data path is \"${EXPORTPATH}\""
+}
+
+checkerExecJava () {
+   for jar in $(ls ${binpath}/../lib/canal );
+   do
+      CP=${binpath}/../lib/canal/${jar}:${CP};
+   done
+   
+   for jar in $(ls ${binpath}/../lib/mysql );
+   do
+      CP=${binpath}/../lib/mysql/${jar}:${CP};
+   done
+
+   check_jar=$(ls ${binpath}/../lib/checkDB*.jar)
+   check_jar=$(basename ${check_jar})
+
+   java -Dlog4j.configuration="file:${binpath}/../conf/checkDB.log4j.properties" -cp ${CP}:${binpath}/../lib/${check_jar} com.sequoiadb.CheckDB ${ip} ${port} ${user} ${password} ${dbname}
+}
+
+checkMysqlLogin () {
+   result=$(${MYSQL} "select 1;")
+   if [ "0" != "$?" ] ; then
+      echo "mysql login fail"
+      echo "erro info : ${result}";
+      exit -1;
+   fi
+}
+################## init env <<<<<<<<<<<<<<<<<<<<<<<
+
+################## util >>>>>>>>>>>>>>>>>>>>>>
+writeSdbImportFile () {
+   local SDBIMPORTFILE=${binpath}/../sdbImport.sh
+   echo -e "#!/bin/bash\n\n" > ${SDBIMPORTFILE}
+
+   echo -e "SDBIMPORT=\"sdbimprt\"" >> ${SDBIMPORTFILE}
+   echo -e "DATADIR=\"./\"\n\n" >> ${SDBIMPORTFILE}
+
+
+   
+   for table in $(cat ${metatable_file})
+   do
+      getTableInfo ${table}
+      if [ "atrue" == a"${ISEXPORT}" ] ; then
+         echo -e "\$SDBIMPORT -c ${dbname} -l ${TABLENAME} -j 3 --coord true -r '\10'  -e '\27' \\" >> ${SDBIMPORTFILE}
+         echo -e "--file \"\${DATADIR}/${dbname}.${TABLENAME}.csv.utf8\" \\" >> ${SDBIMPORTFILE}
+         echo -e "--datefmt \"YYYY-MM-DD\" \\" >> ${SDBIMPORTFILE}
+         echo -e "--timestampfmt \"YYYY-MM-DD HH:mm:ss\" \\" >> ${SDBIMPORTFILE}
+         echo -e "--fields \"" >> ${SDBIMPORTFILE}
+         echo -e "${COLSDBIMPORTINFO}" >> ${SDBIMPORTFILE}
+         echo -e "\"\n" >> ${SDBIMPORTFILE}
+      fi
+   done
+  
+   
+}
+
+getTableSelectInfo () {
+   local COLINFO=$1
+ 
+   COLINFO=${COLINFO//[/};
+   COLINFO=${COLINFO//]/};
+   COLINFO=${COLINFO//:varchar2/};
+   COLINFO=${COLINFO//:varchar/};
+   COLINFO=${COLINFO//:char/};
+   COLINFO=${COLINFO//:datetime/};
+   COLINFO=${COLINFO//:date/};
+   COLINFO=${COLINFO//:timestamp/};
+   COLINFO=${COLINFO//:time/};
+   COLINFO=${COLINFO//:decimal/};
+   COLINFO=${COLINFO//:numeric/};
+   COLINFO=${COLINFO//:blob/};
+   COLINFO=${COLINFO//:lob/};
+   COLINFO=${COLINFO//:double/};
+   COLINFO=${COLINFO//:float/};
+   COLINFO=${COLINFO//:text/};
+   COLINFO=${COLINFO//:binary/};
+   COLINFO=${COLINFO//:tinyint/};
+   COLINFO=${COLINFO//:smallint/};
+   COLINFO=${COLINFO//:mediumint/};
+   COLINFO=${COLINFO//:bigint/};
+   COLINFO=${COLINFO//:int/};
+
+   echo $COLINFO;
+}
+
+getSdbImportFieldType () {
+   local COLINFO=$1
+ 
+   COLINFO=${COLINFO//[/};
+   COLINFO=${COLINFO//]/};
+   COLINFO=${COLINFO//:varchar2/ string};
+   COLINFO=${COLINFO//:varchar/ string};
+   COLINFO=${COLINFO//:char/ string};
+   COLINFO=${COLINFO//:datetime/ timestamp};
+   COLINFO=${COLINFO//:date/ date};
+   COLINFO=${COLINFO//:timestamp/ timestamp};
+   COLINFO=${COLINFO//:time/ timestamp};
+   COLINFO=${COLINFO//:decimal/ decimal};
+   COLINFO=${COLINFO//:numeric/ decimal};
+   #COLINFO=${COLINFO//:blob/};
+   #COLINFO=${COLINFO//:lob/};
+   COLINFO=${COLINFO//:double/ double};
+   COLINFO=${COLINFO//:float/ double};
+   COLINFO=${COLINFO//:text/ string};
+   #COLINFO=${COLINFO//:binary/};
+   COLINFO=${COLINFO//:tinyint/ int};
+   COLINFO=${COLINFO//:smallint/ int};
+   COLINFO=${COLINFO//:mediumint/ int};
+   COLINFO=${COLINFO//:bigint/ long};
+   COLINFO=${COLINFO//:int/ int};
+
+   echo $COLINFO;
+
+}
+
+getTableInfo () {
+   table=$1
+
+   TABLENAME=$(echo ${table} | cut -d "|" -f 1)
+   COLINFO=$(echo ${table} | cut -d "|" -f 2)
+   CHARSET=$(echo ${table} | cut -d "|" -f 3)
+   ISEXPORT=$(echo ${table} | cut -d "|" -f 4)
+   OUTEXPORTFILE=${EXPORTPATH}/${dbname}.${TABLENAME}.csv.${CHARSET}
+
+   COLSELECTINFO=$(getTableSelectInfo ${COLINFO})
+   COLSDBIMPORTINFO=$(getSdbImportFieldType ${COLINFO})
+
+}
+################## util <<<<<<<<<<<<<<<<<<<<<<<
+
+
+################## exec >>>>>>>>>>>>>>>>>>>>>>
+export_from_mysql () {
+   for table in $(cat ${metatable_file})
+   do
+      getTableInfo ${table}
+      EXPORT="SELECT ${COLSELECTINFO} from ${dbname}.${TABLENAME} into outfile '${OUTEXPORTFILE}' fields terminated by '' optionally enclosed by '\"' escaped by '\"' lines terminated by '\n';" 
+      if [ "atrue" == a"${ISEXPORT}" ] ; then
+
+         if [ a"${OVERWRITE}" == a"true" ] ; then
+            rm -f ${OUTEXPORTFILE};
+         fi
+         value=$(${MYSQL} "${EXPORT}")
+      fi
+   done 
+}
+
+charset_trans () {
+   if [ "true" == "${TRANS}" ] ; then
+      for table in $(cat ${metatable_file})
+      do
+         getTableInfo ${table}
+         if [ "agbk" == a"${CHARSET}" -a "atrue" == a"${ISEXPORT}" ] ; then
+            python ${binpath}/transcode.py -f ${OUTEXPORTFILE} -o ${EXPORTPATH} -a 'gbk' -b 'utf8' > /dev/null
+            mv ${OUTEXPORTFILE}.utf8 ${EXPORTPATH}/${dbname}.${TABLENAME}.csv.utf8
+         fi
+      done
+   fi
+}
+################## exec <<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+if [ $# -lt 1 ]
+then
+   usage
+else
+   while  getopts "w:u:p:d:i:o:h:-help:-trans" opt;
+   do
+      case ${opt} in
+      h) usage ;
+      ;;
+      -help) usage ;
+      ;;
+      i) ip=${OPTARG}
+      ;;
+      p) port=${OPTARG}
+      ;;
+      u) user=${OPTARG}
+      ;;
+      w) password=${OPTARG}
+      ;;
+      d) dbname=${OPTARG}
+      ;;
+      o) 
+         _O=${OPTARG}
+         _O=$(echo ${_O} | tr '[A-Z]' '[a-z]')
+         if [ "atrue" == a"${_O}" -o "afalse" == a"${_O}" ] ; then
+            OVERWRITE=${_O}
+         else
+            echo "--overwrite only can be [true/false]"
+            usage ;
+         fi
+      ;;
+      -trans)
+         _O=${OPTARG}
+         _O=$(echo ${_O} | tr '[A-Z]' '[a-z]')
+         if [ "atrue" == a"${_O}" -o "afalse" == a"${_O}" ] ; then
+            TRANS=${_O}
+         else
+            echo "--trans only can be [true/false]"
+            usage ;
+         fi
+      ;;
+      esac
+   done
+fi
+
+
+if [ "a" == a"${user}" ] ; then
+   echo "mysql user must be set";
+   usage;
+fi
+
+if [ "a" == a"${password}" ] ; then
+   echo "mysql user's password must be set";
+   usage;
+fi
+
+if [ "a" == a"$dbname" ] ; then
+   echo "mysql dbname must be enter"
+   usage;
+fi
+
+ip=${ip:-localhost}
+port=${port:-3306}
+
+
+if ! (grep '^[[:digit:]]*$' <<< "$port" >> /dev/nulll)  ; then
+  echo "-w option must be a number"
+  usage;
+  exit -1;
+fi
+
+sdb_path=/opt/sequoiadb/bin
+sdb_hostname=localhost
+sdb_svcname=11810
+sdb_username=sdbadmin
+sdb_password=sdbadmin
+metatable_file="metatable.out"
+time=`date +%H%M`
+
+######### global variable #############
+TABLENAME=""
+COLINFO=""
+COLSELECTINFO=""
+COLSDBIMPORTINFO=""
+CHARSET=""
+ISEXPORT=""
+OUTEXPORTFILE=""
+EXPORTPATH=""
+OVERWRITE=${OVERWRITE:-true}
+TRANS=${TRANS:-true}
+MYSQL="mysql -h ${ip} -P ${port} -u${user} -p${password} -ANe"
+######################
+checkJDK ;
+
+checkMysqlIsExist ;
+
+checkMysqlLogin ;
+
+checkerExecJava ;
+
+getExportPath ;
+
+export_from_mysql ;
+
+writeSdbImportFile ;
+
+charset_trans ;
+
+#file_num=`wc -l ${outExportFile} |awk '{print $1}' `    
+
+#	#create CS&CL
+#    ${sdb_path}/sdb -e "var hostname = \"${sdb_hostname}\";var port = \"${sdb_svcname}\"; var username = \"${sdb_username}\"; var password = \"${sdb_password}\"; var cs_name = \"${dbname}\";var cl_name = \"${table_name}\";" -f createCL.js
+#    
+#	#will chang metable session
+#	metable=$(echo ${table} |cut -d "|" -f 2)
+#    table1=${metable//[/ }
+#    table2=${table1//]/ }
+#    table3=${table2//:/ }
+#    table4=${table3//varchar2/string}
+#    table5=${table4//varchar/string}
+#    table6=${table5//char/string}
+#    table7=${table6//blob/string}
+#    table8=${table7//clob/string}
+#    table9=${table8//lob/string}
+#    metable_over="${table9//bfile/string}"
+#    echo "metable_over is : "${metable_over}
+#
+#	# begin sdbimport data 
+#    ${sdb_path}/sdbimprt -s ${sdb_hostname} -p ${sdb_svcname} -u ${sdb_username} -w ${sdb_password} -c ${dbname} -l ${table_name}  --type=csv -r '\10'  -e '\27' --file=${outExportFile} --fields "${metable_over}" >sdbimport.p
+#	RUN=$?
+#    echo "-------->>>>>>"${dbname}"."${table_name} >> sdbimport_${time}.out
+#    cat sdbimport.p >> sdbimport_${time}.out
+#    import_num=`cat sdbimport.p | grep parsed | awk '{print $3}' `
+#    if (( ${import_num} == ${file_num} )) &&  ((${RUN} == 0 )) ; then
+#        echo " sdbimport success : "${dbname}"."${table_name}
+#        echo "success : ${dbname}.${table_name} , import num is :${import_num} " >> mysql_to_sdb_success_${time}.log
+#    else
+#        echo "ERROR : ${dbname}.${table_name} , import num is :${import_num} " >> mysql_to_sdb_error_${time}.log
+#    fi
+#    rm -rf sdbimport.p

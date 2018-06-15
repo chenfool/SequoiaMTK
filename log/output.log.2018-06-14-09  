@@ -1,0 +1,30 @@
+2018-06-14 09:06:25,632 [main] INFO   connect to mysql, database = foo
+2018-06-14 09:06:25,660 [main] INFO   check foo.t1	pass
+2018-06-14 09:06:25,673 [main] WARN   check foo.t2	pass, charset is gbk, but it don't have primary key
+2018-06-14 09:06:25,699 [main] WARN   check foo.t3	pass, but it don't have primary key
+2018-06-14 09:06:25,738 [main] WARN   check foo.t4	pass, but it don't have primary key
+2018-06-14 09:06:25,755 [main] WARN   check foo.t5	pass, but it don't have primary key
+2018-06-14 09:06:25,765 [main] WARN   check foo.test	pass, but it don't have primary key
+2018-06-14 09:27:25,828 [main] INFO   connect to mysql, database = foo
+2018-06-14 09:27:25,889 [main] INFO   check foo.t1	pass
+2018-06-14 09:27:25,901 [main] WARN   check foo.t2	pass, charset is gbk, but it don't have primary key
+2018-06-14 09:27:25,920 [main] WARN   check foo.t3	pass, but it don't have primary key
+2018-06-14 09:27:25,944 [main] WARN   check foo.t4	pass, but it don't have primary key
+2018-06-14 09:27:25,960 [main] WARN   check foo.t5	pass, but it don't have primary key
+2018-06-14 09:27:25,989 [main] WARN   check foo.test	pass, but it don't have primary key
+2018-06-14 09:36:42,254 [main] INFO   connect to mysql, database = foo
+2018-06-14 09:36:42,319 [main] INFO   check foo.t1	pass
+2018-06-14 09:36:42,343 [main] WARN   check foo.t2	pass, charset is gbk, but it don't have primary key
+2018-06-14 09:36:42,354 [main] WARN   check foo.t3	pass, but it don't have primary key
+2018-06-14 09:36:42,378 [main] WARN   check foo.t4	pass, but it don't have primary key
+2018-06-14 09:36:42,397 [main] WARN   check foo.t5	pass, but it don't have primary key
+2018-06-14 09:36:42,416 [main] WARN   check foo.t6	pass, but it don't have primary key
+2018-06-14 09:36:42,430 [main] WARN   check foo.test	pass, but it don't have primary key
+2018-06-14 09:40:53,325 [main] INFO   connect to mysql, database = foo
+2018-06-14 09:40:53,374 [main] INFO   check foo.t1	pass
+2018-06-14 09:40:53,400 [main] WARN   check foo.t2	pass, charset is gbk, but it don't have primary key
+2018-06-14 09:40:53,431 [main] WARN   check foo.t3	pass, but it don't have primary key
+2018-06-14 09:40:53,454 [main] WARN   check foo.t4	pass, but it don't have primary key
+2018-06-14 09:40:53,462 [main] WARN   check foo.t5	pass, but it don't have primary key
+2018-06-14 09:40:53,470 [main] WARN   check foo.t6	pass, but it don't have primary key
+2018-06-14 09:40:53,489 [main] WARN   check foo.test	pass, but it don't have primary key

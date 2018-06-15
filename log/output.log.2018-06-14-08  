@@ -1,0 +1,35 @@
+2018-06-14 08:55:39,603 [main] INFO   connect to mysql, database = foo
+2018-06-14 08:55:39,669 [main] INFO   check foo.t1	pass
+2018-06-14 08:55:39,686 [main] WARN   check foo.t2	pass, but it don't have primary key
+2018-06-14 08:55:39,711 [main] ERROR  check foo.t3	fail, foo.t3 have unsupported column type, column name = a8, column type = binary
+2018-06-14 08:55:39,724 [main] WARN   check foo.t4	pass, but it don't have primary key
+2018-06-14 08:55:39,744 [main] WARN   check foo.t5	pass, but it don't have primary key
+2018-06-14 08:55:39,785 [main] WARN   check foo.test	pass, but it don't have primary key
+2018-06-14 08:56:40,520 [main] INFO   connect to mysql, database = foo
+2018-06-14 08:56:40,549 [main] INFO   check foo.t1	pass
+2018-06-14 08:56:40,576 [main] WARN   check foo.t2	pass, but it don't have primary key
+2018-06-14 08:56:40,599 [main] ERROR  check foo.t3	fail, foo.t3 have unsupported column type, column name = a8, column type = binary
+2018-06-14 08:56:40,613 [main] WARN   check foo.t4	pass, but it don't have primary key
+2018-06-14 08:56:40,628 [main] WARN   check foo.t5	pass, but it don't have primary key
+2018-06-14 08:56:40,636 [main] WARN   check foo.test	pass, but it don't have primary key
+2018-06-14 08:56:52,083 [main] INFO   connect to mysql, database = foo
+2018-06-14 08:56:52,119 [main] INFO   check foo.t1	pass
+2018-06-14 08:56:52,134 [main] WARN   check foo.t2	pass, but it don't have primary key
+2018-06-14 08:56:52,153 [main] ERROR  check foo.t3	fail, foo.t3 have unsupported column type, column name = a8, column type = binary
+2018-06-14 08:56:52,176 [main] WARN   check foo.t4	pass, but it don't have primary key
+2018-06-14 08:56:52,189 [main] WARN   check foo.t5	pass, but it don't have primary key
+2018-06-14 08:56:52,212 [main] WARN   check foo.test	pass, but it don't have primary key
+2018-06-14 08:57:13,082 [main] INFO   connect to mysql, database = foo
+2018-06-14 08:57:13,114 [main] INFO   check foo.t1	pass
+2018-06-14 08:57:13,126 [main] WARN   check foo.t2	pass, but it don't have primary key
+2018-06-14 08:57:13,149 [main] ERROR  check foo.t3	fail, foo.t3 have unsupported column type, column name = a8, column type = binary
+2018-06-14 08:57:13,160 [main] WARN   check foo.t4	pass, but it don't have primary key
+2018-06-14 08:57:13,178 [main] WARN   check foo.t5	pass, but it don't have primary key
+2018-06-14 08:57:13,189 [main] WARN   check foo.test	pass, but it don't have primary key
+2018-06-14 08:58:14,562 [main] INFO   connect to mysql, database = foo
+2018-06-14 08:58:14,596 [main] INFO   check foo.t1	pass
+2018-06-14 08:58:14,615 [main] WARN   check foo.t2	pass, but it don't have primary key
+2018-06-14 08:58:14,636 [main] ERROR  check foo.t3	fail, foo.t3 have unsupported column type, column name = a8, column type = binary
+2018-06-14 08:58:14,661 [main] WARN   check foo.t4	pass, but it don't have primary key
+2018-06-14 08:58:14,674 [main] WARN   check foo.t5	pass, but it don't have primary key
+2018-06-14 08:58:14,680 [main] WARN   check foo.test	pass, but it don't have primary key
