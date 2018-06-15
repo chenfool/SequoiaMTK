@@ -26,7 +26,8 @@ mexport 将根据metatable.out文件从mysql中导出数据，并且根据Sequoi
 由于目前版本mexport从mysql中导出数据是使用mysql提供的outfile功能，所以mysql服务必须要预先设置secure_file_priv参数，否则将会数据导出失败。
 
 ## mexport 注意
-mexport在检查mysql 的表结构时，如果发现数据表中字段类型不支持导出，则在后续的处理中将会忽略该数据表。
+mexport在检查mysql 的表结构时，如果数据表的字符集非utf8或者gbk，同样也无法导出数据，并且当字符集为gbk时，mexport将自动将导出文件的字符集转换为utf8。
+另外，如果发现数据表中字段类型不支持导出，则在后续的处理中将会忽略该数据表。
 目前mexport支持的数据类型包括
 * tinyint
 * smallint
@@ -42,4 +43,3 @@ mexport在检查mysql 的表结构时，如果发现数据表中字段类型不�
 * char
 * varchar
 * text </br>
-另外，如果数据表的字符集非utf8和gbk同样也无法导出数据，并且当字符集为gbk时，mexport将自动将导出文件的字符集转换为utf8。
